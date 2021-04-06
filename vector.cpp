@@ -19,13 +19,13 @@ public:
 	}
 
 
-	vector(const T * ar,size_t size){
+	vector(const T * arr,size_t size){
 	
 		init();
 		capacity = size;
 		arr = new T[size];
 		for (int i = 0; i < size;i++){
-			pushBack(ar[i]);
+			pushBack(arr[i]);
 		}
 
 	}
@@ -42,68 +42,41 @@ public:
 	}
 
 
-		//this->size = n > this->size ? this->size : n;
+	
 
 
 
 
 
 
+	bool resize(size_t n=2) {
 
-	void resize(size_t n=2) {
-
-		this->capacity = capacity*n;
+	
+		this->capacity = this->capacity* n;
 
 		T* newdata = nullptr;
-		newdata =new T[capacity];
+		newdata =new T[this->capacity];
 
 		if (newdata == nullptr) {
-	    	throw std::runtime_error("Allocate Eror");
+	    	throw std::runtime_error("Allocate Error");
 		}
 
 		for (int i = 0; i < this->size; i++)
 		{
 			newdata[i] = this->arr[i];
 		}
-		delete[] this->arr;
+		delete[]this->arr;
 		this->arr = newdata;
 
+		return true;
+
 
 
 	}
 
 
-	void extend(size_t new_size = 2) {
-		size_t new_capacity;
-		new_capacity = capacity * new_size;
-		//capicity = new_capacity;
-		T* new_arr = nullptr;
-	    new_arr = new T[new_capacity]{};
 
-
-		if (new_arr == nullptr) {
-	     throw std::runtime_error("Allocate Eror");
-		}
-
-
-		memcpy_s(new_arr,new_capacity, arr,capacity);
-		capacity = new_capacity;
-		delete[]arr;
-		arr = new_arr;
-
-		for (int i = 0; i < size; i++) {
-
-			cout << "Debug: " << &arr[i]<<endl;
-
-
-		}
-
-		//delete[] new_arr;
-	}
-
-
-
-	void pushBack(const T & a) noexcept {
+	void pushBack(const T & a) noexcept(false) {
 
 		if (arr == nullptr) {
 			arr = new T[capacity];
@@ -114,10 +87,16 @@ public:
 		else {
 			
 			if (size >= capacity) {
-				resize();
+				
+				if (resize() == false) {
+
+					throw std::runtime_error("Resize error");
+			      	
+				}
+
 			}
   			arr[size] = a;
-			//cout << &arr[size]<<endl;
+			
 			size++;
 		}
 	
@@ -205,6 +184,7 @@ public:
 
 			if (newdata == nullptr) {
 				throw std::runtime_error("Allocate Eror");
+			
 			}
 
 
@@ -251,7 +231,6 @@ public:
 
  ~vector() { clear(); }
 
-private:
 
 };
 
@@ -267,29 +246,25 @@ int main (){
 
 
 
-
-
-		 
-
-
+		vector<int>n;
 
 		
-		//n.pushBack(11);
-		//n.pushBack(12);
-		//n.pushBack(13);
-		//n.pushBack(14);
-		//n.pushBack(15);
-		//n.push_front(33);
-		//n.popBack();
-		//n.popFront();
-		//n.shrink_to_fit();
-		//cout << endl;
-		cout << n1[0]<<endl;
-		cout << n1[1]<<endl;
-		cout << n2[2]<<endl;
-		cout << n2[3]<<endl;
+		n.pushBack(11);
+		n.pushBack(12);
+		n.pushBack(13);
+		n.pushBack(14);
+		n.pushBack(15);
+		n.push_front(33);
+		n.popBack();
+		n.popFront();
+		n.shrink_to_fit();
+
+		cout << n[0]<<endl;
+		cout << n[1]<<endl;
+		cout << n[2]<<endl;
+		cout << n[3]<<endl;
 		cout << n[4]<<endl;
-		////cout << n[5] << endl;
+		cout << n[5] << endl;
 	
 
 	}
