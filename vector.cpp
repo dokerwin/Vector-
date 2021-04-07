@@ -23,8 +23,8 @@ public:
 	
 		init();
 		capacity = size;
-		arr = new T[size];
-		for (int i = 0; i < size;i++){
+		this->arr = new T[size];
+		for (size_t i = 0; i < size;i++){
 			pushBack(arr[i]);
 		}
 
@@ -34,10 +34,12 @@ public:
 	
 	void init() {
         arr = nullptr;
-		capacity, size = 0;
+		capacity = 0;
+		size = 0;
 	}
 	void clear() {
-		capacity, size = 0;
+		capacity=0;
+		size = 0;
 		delete[]arr;
 	}
 
@@ -245,10 +247,15 @@ int main (){
 
 
 
+		int a[5] = { 1,4,6,7,8 };
 
-		vector<int>n;
 
-		
+
+		vector<int>n(a, 5);
+
+
+
+		/*
 		n.pushBack(11);
 		n.pushBack(12);
 		n.pushBack(13);
@@ -257,7 +264,7 @@ int main (){
 		n.push_front(33);
 		n.popBack();
 		n.popFront();
-		n.shrink_to_fit();
+		n.shrink_to_fit();*/
 
 		cout << n[0]<<endl;
 		cout << n[1]<<endl;
